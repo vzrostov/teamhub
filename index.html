@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+      name="description"
+      content="TeamHub workspace for projects, tasks, team members, and activity."
+    >
+    <title>TeamHub — Project Workspace</title>
+  </head>
+
+  <body>
+    <a href="#main-content">Skip to main content</a>
+
+    <header>
+      <h1>TeamHub</h1>
+      <p>One workspace for projects, tasks, and team activity.</p>
+
+      <nav aria-label="Primary navigation">
+        <ul>
+          <li><a href="#dashboard">Dashboard</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#tasks">Tasks</a></li>
+          <li><a href="#team">Team</a></li>
+        </ul>
+      </nav>
+
+      <p>
+        Signed in as <strong>Alex Morgan</strong>
+      </p>
+
+      <form action="/logout" method="post">
+        <button type="submit">Sign out</button>
+      </form>
+    </header>
+
+    <main id="main-content">
+      <section id="dashboard" aria-labelledby="dashboard-heading">
+        <h2 id="dashboard-heading">Dashboard</h2>
+
+        <dl>
+          <div>
+            <dt>Active projects</dt>
+            <dd>3</dd>
+          </div>
+          <div>
+            <dt>Open tasks</dt>
+            <dd>8</dd>
+          </div>
+          <div>
+            <dt>Completed today</dt>
+            <dd>2</dd>
+          </div>
+          <div>
+            <dt>Unread notifications</dt>
+            <dd>4</dd>
+          </div>
+        </dl>
+      </section>
+
+      <aside id="projects" aria-labelledby="projects-heading">
+        <h2 id="projects-heading">Projects</h2>
+
+        <ul>
+          <li><a href="#project-atlas" aria-current="page">Project Atlas</a></li>
+          <li><a href="#project-orbit">Project Orbit</a></li>
+          <li><a href="#project-nova">Project Nova</a></li>
+        </ul>
+      </aside>
+
+      <section id="tasks" aria-labelledby="project-atlas">
+        <header>
+          <h2 id="project-atlas">Project Atlas</h2>
+          <p>Prepare the first production release of the TeamHub workspace.</p>
+          <p>
+            Project manager: <strong>Emma Wilson</strong><br>
+            Target date: <time datetime="2026-11-15">November 15, 2026</time>
+          </p>
+        </header>
+
+        <section aria-labelledby="task-board-heading">
+          <h3 id="task-board-heading">Task board</h3>
+
+          <section class="task-column" aria-labelledby="todo-heading">
+            <h4 id="todo-heading">Todo</h4>
+
+            <article class="task-card">
+              <h5>Define release checklist</h5>
+              <p>Create the first version of the production release checklist.</p>
+              <dl>
+                <dt>Assignee</dt>
+                <dd>Alex Morgan</dd>
+                <dt>Priority</dt>
+                <dd>High</dd>
+                <dt>Due date</dt>
+                <dd><time datetime="2026-10-03">October 3, 2026</time></dd>
+              </dl>
+              <button type="button">View details</button>
+            </article>
+
+            <article class="task-card">
+              <h5>Review mobile navigation</h5>
+              <p>Confirm that all primary actions remain available on a phone.</p>
+              <dl>
+                <dt>Assignee</dt>
+                <dd>Daniel Lee</dd>
+                <dt>Priority</dt>
+                <dd>Medium</dd>
+                <dt>Due date</dt>
+                <dd><time datetime="2026-10-07">October 7, 2026</time></dd>
+              </dl>
+              <button type="button">View details</button>
+            </article>
+          </section>
+
+          <section class="task-column" aria-labelledby="in-progress-heading">
+            <h4 id="in-progress-heading">In progress</h4>
+
+            <article class="task-card">
+              <h5>Build task filtering</h5>
+              <p>Add filtering by status, assignee, and search text.</p>
+              <dl>
+                <dt>Assignee</dt>
+                <dd>Emma Wilson</dd>
+                <dt>Priority</dt>
+                <dd>High</dd>
+                <dt>Due date</dt>
+                <dd><time datetime="2026-09-30">September 30, 2026</time></dd>
+              </dl>
+              <button type="button">View details</button>
+            </article>
+          </section>
+
+          <section class="task-column" aria-labelledby="done-heading">
+            <h4 id="done-heading">Done</h4>
+
+            <article class="task-card">
+              <h5>Approve application structure</h5>
+              <p>Agree on the main product areas and navigation hierarchy.</p>
+              <dl>
+                <dt>Assignee</dt>
+                <dd>Alex Morgan</dd>
+                <dt>Priority</dt>
+                <dd>High</dd>
+                <dt>Completed</dt>
+                <dd><time datetime="2026-09-27">September 27, 2026</time></dd>
+              </dl>
+              <button type="button">View details</button>
+            </article>
+          </section>
+        </section>
+
+        <section aria-labelledby="create-task-heading">
+          <h3 id="create-task-heading">Create a task</h3>
+
+          <form action="/tasks" method="post">
+            <fieldset>
+              <legend>Task information</legend>
+
+              <p>
+                <label for="task-title">Title</label><br>
+                <input
+                  id="task-title"
+                  name="title"
+                  type="text"
+                  maxlength="120"
+                  required
+                >
+              </p>
+
+              <p>
+                <label for="task-description">Description</label><br>
+                <textarea
+                  id="task-description"
+                  name="description"
+                  rows="5"
+                  maxlength="1000"
+                ></textarea>
+              </p>
+
+              <p>
+                <label for="task-status">Status</label><br>
+                <select id="task-status" name="status">
+                  <option value="todo">Todo</option>
+                  <option value="in-progress">In progress</option>
+                  <option value="done">Done</option>
+                </select>
+              </p>
+
+              <p>
+                <label for="task-assignee">Assignee</label><br>
+                <select id="task-assignee" name="assigneeId">
+                  <option value="">Unassigned</option>
+                  <option value="alex-morgan">Alex Morgan</option>
+                  <option value="emma-wilson">Emma Wilson</option>
+                  <option value="daniel-lee">Daniel Lee</option>
+                </select>
+              </p>
+
+              <p>
+                <label for="task-due-date">Due date</label><br>
+                <input id="task-due-date" name="dueDate" type="date">
+              </p>
+            </fieldset>
+
+            <button type="submit">Create task</button>
+            <button type="reset">Clear form</button>
+          </form>
+        </section>
+      </section>
+
+      <section id="team" aria-labelledby="team-heading">
+        <h2 id="team-heading">Project team</h2>
+
+        <table>
+          <caption>Members of Project Atlas</caption>
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Role</th>
+              <th scope="col">Open tasks</th>
+              <th scope="col">Availability</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Emma Wilson</th>
+              <td>Project Manager</td>
+              <td>3</td>
+              <td>Available</td>
+            </tr>
+            <tr>
+              <th scope="row">Alex Morgan</th>
+              <td>Frontend Developer</td>
+              <td>4</td>
+              <td>Focused work</td>
+            </tr>
+            <tr>
+              <th scope="row">Daniel Lee</th>
+              <td>Product Designer</td>
+              <td>1</td>
+              <td>Available</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section aria-labelledby="activity-heading">
+        <h2 id="activity-heading">Recent activity</h2>
+        <ol>
+          <li>
+            <strong>Emma Wilson</strong> moved “Build task filtering” to
+            <strong>In progress</strong>
+            <time datetime="2026-09-28T09:20:00+03:00">today at 09:20</time>.
+          </li>
+          <li>
+            <strong>Alex Morgan</strong> completed “Approve application structure”
+            <time datetime="2026-09-27T17:45:00+03:00">yesterday at 17:45</time>.
+          </li>
+        </ol>
+      </section>
+    </main>
+
+    <footer>
+      <p><small>TeamHub version 0.1 — semantic HTML foundation.</small></p>
+    </footer>
+  </body>
+</html>
