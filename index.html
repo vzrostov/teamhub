@@ -8,16 +8,19 @@
       content="TeamHub workspace for projects, tasks, team members, and activity."
     >
     <title>TeamHub — Project Workspace</title>
+    <link rel="stylesheet" href="styles.css">
   </head>
 
   <body>
-    <a href="#main-content">Skip to main content</a>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    <header>
-      <h1>TeamHub</h1>
-      <p>One workspace for projects, tasks, and team activity.</p>
+    <header class="site-header">
+      <div class="brand">
+        <h1>TeamHub</h1>
+        <p>One workspace for projects, tasks, and team activity.</p>
+      </div>
 
-      <nav aria-label="Primary navigation">
+      <nav class="primary-navigation" aria-label="Primary navigation">
         <ul>
           <li><a href="#dashboard">Dashboard</a></li>
           <li><a href="#projects">Projects</a></li>
@@ -26,16 +29,18 @@
         </ul>
       </nav>
 
-      <p>
-        Signed in as <strong>Alex Morgan</strong>
-      </p>
+      <div class="account-actions">
+        <p>
+          Signed in as <strong>Mr X</strong>
+        </p>
 
-      <form action="/logout" method="post">
-        <button type="submit">Sign out</button>
-      </form>
+        <form action="/logout" method="post">
+          <button class="button button-secondary" type="submit">Sign out</button>
+        </form>
+      </div>
     </header>
 
-    <main id="main-content">
+    <main id="main-content" class="app-layout">
       <section id="dashboard" aria-labelledby="dashboard-heading">
         <h2 id="dashboard-heading">Dashboard</h2>
 
@@ -63,18 +68,18 @@
         <h2 id="projects-heading">Projects</h2>
 
         <ul>
-          <li><a href="#project-atlas" aria-current="page">Project Atlas</a></li>
-          <li><a href="#project-orbit">Project Orbit</a></li>
-          <li><a href="#project-nova">Project Nova</a></li>
+          <li><a href="#project-a" aria-current="page">Project A</a></li>
+          <li><a href="#project-b">Project B</a></li>
+          <li><a href="#project-c">Project C</a></li>
         </ul>
       </aside>
 
-      <section id="tasks" aria-labelledby="project-atlas">
+      <section id="tasks" aria-labelledby="project-a">
         <header>
-          <h2 id="project-atlas">Project Atlas</h2>
+          <h2 id="project-a">Project A</h2>
           <p>Prepare the first production release of the TeamHub workspace.</p>
           <p>
-            Project manager: <strong>Emma Wilson</strong><br>
+            Project manager: <strong>Ms Q</strong><br>
             Target date: <time datetime="2026-11-15">November 15, 2026</time>
           </p>
         </header>
@@ -86,31 +91,31 @@
             <h4 id="todo-heading">Todo</h4>
 
             <article class="task-card">
-              <h5>Define release checklist</h5>
+              <h5>Task 1</h5>
               <p>Create the first version of the production release checklist.</p>
               <dl>
                 <dt>Assignee</dt>
-                <dd>Alex Morgan</dd>
+                <dd>Mr X</dd>
                 <dt>Priority</dt>
                 <dd>High</dd>
                 <dt>Due date</dt>
                 <dd><time datetime="2026-10-03">October 3, 2026</time></dd>
               </dl>
-              <button type="button">View details</button>
+              <button class="button button-secondary" type="button">View details</button>
             </article>
 
             <article class="task-card">
-              <h5>Review mobile navigation</h5>
+              <h5>Task 2</h5>
               <p>Confirm that all primary actions remain available on a phone.</p>
               <dl>
                 <dt>Assignee</dt>
-                <dd>Daniel Lee</dd>
+                <dd>Mr Y</dd>
                 <dt>Priority</dt>
                 <dd>Medium</dd>
                 <dt>Due date</dt>
                 <dd><time datetime="2026-10-07">October 7, 2026</time></dd>
               </dl>
-              <button type="button">View details</button>
+              <button class="button button-secondary" type="button">View details</button>
             </article>
           </section>
 
@@ -118,17 +123,17 @@
             <h4 id="in-progress-heading">In progress</h4>
 
             <article class="task-card">
-              <h5>Build task filtering</h5>
+              <h5>Task 3</h5>
               <p>Add filtering by status, assignee, and search text.</p>
               <dl>
                 <dt>Assignee</dt>
-                <dd>Emma Wilson</dd>
+                <dd>Ms Q</dd>
                 <dt>Priority</dt>
                 <dd>High</dd>
                 <dt>Due date</dt>
                 <dd><time datetime="2026-09-30">September 30, 2026</time></dd>
               </dl>
-              <button type="button">View details</button>
+              <button class="button button-secondary" type="button">View details</button>
             </article>
           </section>
 
@@ -136,17 +141,17 @@
             <h4 id="done-heading">Done</h4>
 
             <article class="task-card">
-              <h5>Approve application structure</h5>
+              <h5>Task 4</h5>
               <p>Agree on the main product areas and navigation hierarchy.</p>
               <dl>
                 <dt>Assignee</dt>
-                <dd>Alex Morgan</dd>
+                <dd>Mr X</dd>
                 <dt>Priority</dt>
                 <dd>High</dd>
                 <dt>Completed</dt>
                 <dd><time datetime="2026-09-27">September 27, 2026</time></dd>
               </dl>
-              <button type="button">View details</button>
+              <button class="button button-secondary" type="button">View details</button>
             </article>
           </section>
         </section>
@@ -192,9 +197,9 @@
                 <label for="task-assignee">Assignee</label><br>
                 <select id="task-assignee" name="assigneeId">
                   <option value="">Unassigned</option>
-                  <option value="alex-morgan">Alex Morgan</option>
-                  <option value="emma-wilson">Emma Wilson</option>
-                  <option value="daniel-lee">Daniel Lee</option>
+                  <option value="mr-x">Mr X</option>
+                  <option value="ms-q">Ms Q</option>
+                  <option value="mr-y">Mr Y</option>
                 </select>
               </p>
 
@@ -204,8 +209,10 @@
               </p>
             </fieldset>
 
-            <button type="submit">Create task</button>
-            <button type="reset">Clear form</button>
+            <div class="form-actions">
+              <button class="button button-primary" type="submit">Create task</button>
+              <button class="button button-secondary" type="reset">Clear form</button>
+            </div>
           </form>
         </section>
       </section>
@@ -214,7 +221,7 @@
         <h2 id="team-heading">Project team</h2>
 
         <table>
-          <caption>Members of Project Atlas</caption>
+          <caption>Members of Project A</caption>
           <thead>
             <tr>
               <th scope="col">Name</th>
@@ -225,19 +232,19 @@
           </thead>
           <tbody>
             <tr>
-              <th scope="row">Emma Wilson</th>
+              <th scope="row">Ms Q</th>
               <td>Project Manager</td>
               <td>3</td>
               <td>Available</td>
             </tr>
             <tr>
-              <th scope="row">Alex Morgan</th>
+              <th scope="row">Mr X</th>
               <td>Frontend Developer</td>
               <td>4</td>
               <td>Focused work</td>
             </tr>
             <tr>
-              <th scope="row">Daniel Lee</th>
+              <th scope="row">Mr Y</th>
               <td>Product Designer</td>
               <td>1</td>
               <td>Available</td>
@@ -246,24 +253,24 @@
         </table>
       </section>
 
-      <section aria-labelledby="activity-heading">
+      <section id="activity" aria-labelledby="activity-heading">
         <h2 id="activity-heading">Recent activity</h2>
         <ol>
           <li>
-            <strong>Emma Wilson</strong> moved “Build task filtering” to
+            <strong>Ms Q</strong> moved “Task 3” to
             <strong>In progress</strong>
             <time datetime="2026-09-28T09:20:00+03:00">today at 09:20</time>.
           </li>
           <li>
-            <strong>Alex Morgan</strong> completed “Approve application structure”
+            <strong>Mr X</strong> completed “Task 4”
             <time datetime="2026-09-27T17:45:00+03:00">yesterday at 17:45</time>.
           </li>
         </ol>
       </section>
     </main>
 
-    <footer>
-      <p><small>TeamHub version 0.1 — semantic HTML foundation.</small></p>
+    <footer class="site-footer">
+      <p><small>TeamHub version 0.2.</small></p>
     </footer>
   </body>
 </html>
