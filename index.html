@@ -9,6 +9,7 @@
     >
     <title>TeamHub — Project Workspace</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
   </head>
 
   <body>
@@ -34,7 +35,7 @@
           Signed in as <strong>Mr X</strong>
         </p>
 
-        <form action="/logout" method="post">
+        <form id="sign-out-form" action="/logout" method="post">
           <button class="button button-secondary" type="submit">Sign out</button>
         </form>
       </div>
@@ -51,11 +52,11 @@
           </div>
           <div>
             <dt>Open tasks</dt>
-            <dd>8</dd>
+            <dd id="open-task-count">0</dd>
           </div>
           <div>
             <dt>Completed today</dt>
-            <dd>2</dd>
+            <dd id="completed-today-count">0</dd>
           </div>
           <div>
             <dt>Unread notifications</dt>
@@ -84,82 +85,83 @@
           </p>
         </header>
 
-        <section aria-labelledby="task-board-heading">
+        <section class="task-filters" aria-labelledby="task-filters-heading">
+          <div class="section-heading">
+            <div>
+              <h3 id="task-filters-heading">Find tasks</h3>
+              <p>Search the current project or narrow the board by status and assignee.</p>
+            </div>
+            <button id="clear-filters" class="button button-secondary" type="button">
+              Clear filters
+            </button>
+          </div>
+
+          <div class="filter-grid">
+            <p>
+              <label for="task-search">Search</label><br>
+              <input
+                id="task-search"
+                type="search"
+                placeholder="Title or description"
+                autocomplete="off"
+              >
+            </p>
+
+            <p>
+              <label for="status-filter">Status</label><br>
+              <select id="status-filter">
+                <option value="all">All statuses</option>
+                <option value="todo">Todo</option>
+                <option value="in-progress">In progress</option>
+                <option value="done">Done</option>
+              </select>
+            </p>
+
+            <p>
+              <label for="assignee-filter">Assignee</label><br>
+              <select id="assignee-filter">
+                <option value="all">All assignees</option>
+                <option value="unassigned">Unassigned</option>
+                <option value="Mr X">Mr X</option>
+                <option value="Ms Q">Ms Q</option>
+                <option value="Mr Y">Mr Y</option>
+                <option value="Ms D">Ms D</option>
+              </select>
+            </p>
+          </div>
+
+          <p id="filter-result-count" class="filter-result-count" aria-live="polite"></p>
+        </section>
+
+        <section class="task-board" aria-labelledby="task-board-heading">
           <h3 id="task-board-heading">Task board</h3>
 
           <section class="task-column" aria-labelledby="todo-heading">
-            <h4 id="todo-heading">Todo</h4>
-
-            <article class="task-card">
-              <h5>Task 1</h5>
-              <p>Create the first version of the production release checklist.</p>
-              <dl>
-                <dt>Assignee</dt>
-                <dd>Mr X</dd>
-                <dt>Priority</dt>
-                <dd>High</dd>
-                <dt>Due date</dt>
-                <dd><time datetime="2026-10-03">October 3, 2026</time></dd>
-              </dl>
-              <button class="button button-secondary" type="button">View details</button>
-            </article>
-
-            <article class="task-card">
-              <h5>Task 2</h5>
-              <p>Confirm that all primary actions remain available on a phone.</p>
-              <dl>
-                <dt>Assignee</dt>
-                <dd>Mr Y</dd>
-                <dt>Priority</dt>
-                <dd>Medium</dd>
-                <dt>Due date</dt>
-                <dd><time datetime="2026-10-07">October 7, 2026</time></dd>
-              </dl>
-              <button class="button button-secondary" type="button">View details</button>
-            </article>
+            <h4 id="todo-heading">
+              Todo <span class="task-count" data-task-count="todo">0</span>
+            </h4>
+            <div class="task-list" data-task-list="todo"></div>
           </section>
 
           <section class="task-column" aria-labelledby="in-progress-heading">
-            <h4 id="in-progress-heading">In progress</h4>
-
-            <article class="task-card">
-              <h5>Task 3</h5>
-              <p>Add filtering by status, assignee, and search text.</p>
-              <dl>
-                <dt>Assignee</dt>
-                <dd>Ms Q</dd>
-                <dt>Priority</dt>
-                <dd>High</dd>
-                <dt>Due date</dt>
-                <dd><time datetime="2026-09-30">September 30, 2026</time></dd>
-              </dl>
-              <button class="button button-secondary" type="button">View details</button>
-            </article>
+            <h4 id="in-progress-heading">
+              In progress <span class="task-count" data-task-count="in-progress">0</span>
+            </h4>
+            <div class="task-list" data-task-list="in-progress"></div>
           </section>
 
           <section class="task-column" aria-labelledby="done-heading">
-            <h4 id="done-heading">Done</h4>
-
-            <article class="task-card">
-              <h5>Task 4</h5>
-              <p>Agree on the main product areas and navigation hierarchy.</p>
-              <dl>
-                <dt>Assignee</dt>
-                <dd>Mr X</dd>
-                <dt>Priority</dt>
-                <dd>High</dd>
-                <dt>Completed</dt>
-                <dd><time datetime="2026-09-27">September 27, 2026</time></dd>
-              </dl>
-              <button class="button button-secondary" type="button">View details</button>
-            </article>
+            <h4 id="done-heading">
+              Done <span class="task-count" data-task-count="done">0</span>
+            </h4>
+            <div class="task-list" data-task-list="done"></div>
           </section>
         </section>
 
         <section aria-labelledby="create-task-heading">
           <h3 id="create-task-heading">Create a task</h3>
 
-          <form action="/tasks" method="post">
+          <form id="create-task-form" action="/tasks" method="post">
             <fieldset>
               <legend>Task information</legend>
 
@@ -194,12 +196,22 @@
               </p>
 
               <p>
+                <label for="task-priority">Priority</label><br>
+                <select id="task-priority" name="priority">
+                  <option value="low">Low</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </p>
+
+              <p>
                 <label for="task-assignee">Assignee</label><br>
                 <select id="task-assignee" name="assigneeId">
                   <option value="">Unassigned</option>
                   <option value="mr-x">Mr X</option>
                   <option value="ms-q">Ms Q</option>
                   <option value="mr-y">Mr Y</option>
+                  <option value="ms-d">Ms D</option>
                 </select>
               </p>
 
@@ -213,6 +225,7 @@
               <button class="button button-primary" type="submit">Create task</button>
               <button class="button button-secondary" type="reset">Clear form</button>
             </div>
+            <p id="task-form-message" class="form-message" aria-live="polite"></p>
           </form>
         </section>
       </section>
@@ -269,8 +282,53 @@
       </section>
     </main>
 
+    <dialog id="task-dialog" aria-labelledby="task-dialog-title">
+      <div class="dialog-content">
+        <header class="dialog-header">
+          <div>
+            <p id="task-dialog-status" class="dialog-eyebrow"></p>
+            <h2 id="task-dialog-title"></h2>
+          </div>
+          <button
+            class="button button-secondary dialog-close"
+            type="button"
+            data-close-dialog
+            aria-label="Close task details"
+          >
+            Close
+          </button>
+        </header>
+
+        <p id="task-dialog-description"></p>
+
+        <dl class="dialog-details">
+          <div>
+            <dt>Assignee</dt>
+            <dd id="task-dialog-assignee"></dd>
+          </div>
+          <div>
+            <dt>Priority</dt>
+            <dd id="task-dialog-priority"></dd>
+          </div>
+          <div>
+            <dt>Due date</dt>
+            <dd id="task-dialog-due-date"></dd>
+          </div>
+        </dl>
+
+        <div class="dialog-actions">
+          <button id="advance-task" class="button button-primary" type="button"></button>
+          <button id="delete-task" class="button button-danger" type="button">
+            Delete task
+          </button>
+        </div>
+      </div>
+    </dialog>
+
+    <p id="app-message" class="app-message" role="status" aria-live="polite" hidden></p>
+
     <footer class="site-footer">
-      <p><small>TeamHub version 0.2.</small></p>
+      <p><small>TeamHub version 0.3.</small></p>
     </footer>
   </body>
 </html>
