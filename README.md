@@ -9,9 +9,11 @@ and recent activity.
 - Responsive layout for mobile, tablet, and desktop screens
 - Project dashboard and task board
 - Dynamic task creation and status transitions
+- Task editing and recoverable deletion
 - Search, status filtering, and assignee filtering
-- Task details dialog and task deletion
+- Task details dialog
 - Browser storage for task persistence
+- Native JavaScript modules with isolated data, state, and interface concerns
 - Team overview and activity feed
 - Keyboard-visible focus states and a skip link
 - Reduced-motion preference support
@@ -36,9 +38,17 @@ Then open `http://localhost:8080`.
 
 ```text
 teamhub/
-├── app.js
 ├── index.html
 ├── styles.css
+├── src/
+│   ├── app.js
+│   ├── data.js
+│   ├── formatters.js
+│   ├── notifications.js
+│   ├── storage.js
+│   ├── task-board.js
+│   ├── task-dialog.js
+│   └── task-store.js
 └── README.md
 ```
 

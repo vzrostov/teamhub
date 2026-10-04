@@ -9,7 +9,7 @@
     >
     <title>TeamHub — Project Workspace</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="app.js" defer></script>
+    <script type="module" src="src/app.js"></script>
   </head>
 
   <body>
@@ -222,8 +222,18 @@
             </fieldset>
 
             <div class="form-actions">
-              <button class="button button-primary" type="submit">Create task</button>
+              <button id="submit-task" class="button button-primary" type="submit">
+                Create task
+              </button>
               <button class="button button-secondary" type="reset">Clear form</button>
+              <button
+                id="cancel-task-edit"
+                class="button button-secondary"
+                type="button"
+                hidden
+              >
+                Cancel editing
+              </button>
             </div>
             <p id="task-form-message" class="form-message" aria-live="polite"></p>
           </form>
@@ -317,6 +327,9 @@
         </dl>
 
         <div class="dialog-actions">
+          <button id="edit-task" class="button button-secondary" type="button">
+            Edit task
+          </button>
           <button id="advance-task" class="button button-primary" type="button"></button>
           <button id="delete-task" class="button button-danger" type="button">
             Delete task
@@ -325,10 +338,15 @@
       </div>
     </dialog>
 
-    <p id="app-message" class="app-message" role="status" aria-live="polite" hidden></p>
+    <div id="app-message" class="app-message" role="status" aria-live="polite" hidden>
+      <span id="app-message-text"></span>
+      <button id="app-message-action" class="button button-secondary" type="button" hidden>
+        Undo
+      </button>
+    </div>
 
     <footer class="site-footer">
-      <p><small>TeamHub version 0.3.</small></p>
+      <p><small>TeamHub version 0.4.</small></p>
     </footer>
   </body>
 </html>
